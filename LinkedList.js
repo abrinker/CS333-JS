@@ -104,7 +104,7 @@ function LinkedList(){
 	
 	//Prints out the contents of the list in a nice orderly fashion
 	this.toString = function(){
-		if (!this.head){console.log("\nEmpty List");}
+		if (!this.head){console.log("Empty List\n\n");}
 		else{
 			current = this.head;
 			string = "Head->";
@@ -112,7 +112,7 @@ function LinkedList(){
 				string += current.item + "->";
 				current = current.next;
 			}
-			string += "End"
+			string += "End\n\n"
 			console.log("List of Size: " +this.size);
 			console.log(string);
 		}
@@ -127,13 +127,20 @@ function square(x){
 	return x*x;
 }
 
-//Adds "blah" to a string
-function add_blah(str){
-	return str+"blah";
+//Removes all vowels from the string
+function mod_string(str){
+	temp = '';
+	vowels = ['a','e','i','o','u'];
+	for(i=0; i<str.length; i++){
+		letter = str.charAt(i);
+		if (vowels.indexOf(letter)>-1){continue;}
+		temp = temp+letter;
+	}
+	return temp;
 }
 
 //Test function for Numbers
-function list_nums(){
+function list_num(){
 	//create a list
 	var list = new LinkedList();
 	console.log("After Initializing");
@@ -155,22 +162,72 @@ function list_nums(){
 	list.toString();
 	
 	//Pop Test
+	console.log("Popped: "+list.pop());
+	console.log("Popped: "+list.pop());
+	list.toString();
 	
+	//Clear Test
 	list.push(49); list.push(56);
 	list.clear()
-	console.log("After pushing a bit more and clearing");
+	console.log("After pushing 49 and 56 and then clearing");
 	list.toString();
 	
+	//Test Map Method
 	list.append(4); list.push(2); list.append(5);
 	list.map(square);
+	console.log("Added 2,4,5 and then applied a squaring function");
 	list.toString();
+	
+	console.log("Checking Size: "+list.get_size());
 }
 
 //Test function for Strings
-function list_strings(){
+function list_string(){
+	//create a list
+	var list = new LinkedList();
+	console.log("After Initializing");
+	list.toString();
+	
+	//Push Test
+	list.push("There"); list.push("Hello");
+	console.log("After Pushing");
+	list.toString();
+	
+	//Append Test
+	list.append("Friend"); list.append("How are you?");
+	console.log("After Appending");
+	list.toString();
+	
+	//Remove Test
+	list.remove("Hello"); list.remove("How are you?");
+	console.log("After Removing 'Hello' and 'How are you?'");
+	list.toString();
+	
+	//Pop Test
+	console.log("Popped: "+list.pop());
+	console.log("Popped: "+list.pop());
+	list.toString();
+	
+	//Clear Test
+	list.push("string1"); list.push("string2");
+	list.clear()
+	console.log("After pushing some strings and then clearing");
+	list.toString();
+	
+	//Test Map Method
+	list.append("This is going");
+	list.append("to look very silly");
+	list.append("when all the vowels are gone.");
+	console.log("Created a new List:");
+	list.toString();
+	list.map(mod_string);
+	console.log("Removed all vowels....HAHAHAHAHA");
+	list.toString();
+	
+	console.log("Checking Size: "+list.get_size());
 }
 
 //Main Method
-list_nums();
-list_strings();
+list_num();
+list_string();
 
