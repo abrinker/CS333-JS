@@ -115,28 +115,62 @@ function LinkedList(){
 			string += "End"
 			console.log("List of Size: " +this.size);
 			console.log(string);
-			console.log("Head:",this.head,"Tail:",this.tail,"\n");
 		}
 	}
 
 }
+
+//-------------------------Test Function Stuff---------------------------------//
 
 //squares an int
 function square(x){
 	return x*x;
 }
 
+//Adds "blah" to a string
+function add_blah(str){
+	return str+"blah";
+}
+
+//Test function for Numbers
+function list_nums(){
+	//create a list
+	var list = new LinkedList();
+	console.log("After Initializing");
+	list.toString();
+	
+	//Push Test
+	list.push(2); list.push(4);
+	console.log("After Pushing");
+	list.toString();
+	
+	//Append Test
+	list.append(5); list.append(89);
+	console.log("After Appending");
+	list.toString();
+	
+	//Remove Test
+	list.remove(89); list.remove(4);
+	console.log("After Removing 89 and 4");
+	list.toString();
+	
+	//Pop Test
+	
+	list.push(49); list.push(56);
+	list.clear()
+	console.log("After pushing a bit more and clearing");
+	list.toString();
+	
+	list.append(4); list.push(2); list.append(5);
+	list.map(square);
+	list.toString();
+}
+
+//Test function for Strings
+function list_strings(){
+}
+
 //Main Method
-var list = new LinkedList();
-list.toString();
-list.push(2); list.push(4);
-list.toString();
-list.append(5); list.append(89);
-list.toString();
-list.remove(89); list.remove(4);
-list.toString();
-list.clear()
-list.toString();
-list.push(2); list.append(4);
-list.map(square);
-list.toString();
+list_nums();
+list_strings();
+
