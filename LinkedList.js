@@ -23,7 +23,7 @@ function LinkedList(){
 	
 	//Pushes a node to the front of the list
 	this.push = function(data){
-		temp = new Node(data);
+		var temp = new Node(data);
 		if (!this.head){
 			this.head = temp;
 			this.tail = temp;
@@ -39,7 +39,7 @@ function LinkedList(){
 	//Pops off the first node of the list and returns it
 	this.pop = function(){
 		if (!this.head){return false;}
-		data = this.head;
+		var data = this.head;
 		this.head = this.head.next;
 		if(this.head){this.head.prev = null;}
 		else{this.tail = null;}
@@ -49,7 +49,7 @@ function LinkedList(){
 	
 	//Appends a node at the end of the list
 	this.append = function(data){
-		temp = new Node(data);
+		var temp = new Node(data);
 		if (!this.head){
 			this.head = temp;
 			this.tail = temp;
@@ -65,7 +65,7 @@ function LinkedList(){
 	//Removes the node whose data matches the given element
 	this.remove = function(target){
 		if (!this.head){return false;}
-		current = this.head;
+		var current = this.head;
 		while (current){
 			if (current.item == target){break;}
 			current = current.next;
@@ -83,9 +83,9 @@ function LinkedList(){
 	}
 	
 	//Removes the ith element of the list
-	this.remove_index = function(){
+	this.remove_index = function(i){
 		if (!this.head || this.size < i+1){return false;}
-		current = this.head;
+		var current = this.head;
 		var count = 0;
 		while (count < i){ //go to the index
 			current = current.next;
@@ -102,6 +102,18 @@ function LinkedList(){
 		return current.item;
 	}
 	
+	//Gets the ith element of the list and returns it
+	this.get_index = function(i){
+		if (!this.head || this.size < i+1){return false;}
+		var current = this.head;
+		var count = 0;
+		while (count < i){ //go to the index
+			current = current.next;
+			count++;
+		}
+		return current.item;
+	}
+	
 	//Returns the size of the list
 	this.get_size = function(){return this.size;}
 	
@@ -115,18 +127,40 @@ function LinkedList(){
 	//Applies the given function to every data value in the list
 	this.map = function(func){
 		if (!this.head){return;}
-		current = this.head;
+		var current = this.head;
 		while (current){
 			current.item = func(current.item);
 			current = current.next;
 		}
 	}
 	
+	//Returns a clone of the current list
+	this.clone = function(){
+		var temp = new LinkedList();
+		current = this.head;
+		while (current){
+			temp.append(current.item);
+			current = current.next;
+		}
+		return temp;
+	}
+	
+	//Returns a shuffled version of the list
+	this.shuffle = function(func){
+		if (!this.head){return;}
+		var temp = new LinkedList();
+		var clone = this.clone();
+		while (clone.get_size() > 0){
+			temp.push(clone.remove_index(Math.floor((Math.random()*clone.get_size()))))
+		}
+		return temp;
+	}
+	
 	//Determines whether or not all the elements are the same type
 	this.is_compromised = function(){
 		if (!this.head){return;}
-		type = typeof this.head.item;
-		current = this.head;
+		var type = typeof this.head.item;
+		var current = this.head;
 		while (current){
 			if(!(typeof current.item == type)){return true;}
 			current = current.next;
@@ -259,6 +293,7 @@ function list_string(){
 	console.log("Checking Size: "+list.get_size());
 }
 
+//Test Function for the integrity of the list
 function list_safety(){
 	console.log("Testing Compromise Check");
 	var list = new LinkedList();
@@ -271,6 +306,7 @@ function list_safety(){
 	console.log(list.is_compromised());
 }
 
+//Test function for the remove_index() method
 function list_remove_test(){
 	console.log("Testing the remove_index() method");
 	var list = new LinkedList();
@@ -284,10 +320,40 @@ function list_remove_test(){
 	list.remove_index(9);
 	list.remove_index(0);
 	list.remove_index(3);
+	console.log("After removing 10th, 1st, and 4th elements (9, 0, 4, should be gone)");
+	list.toString();
+	var count = 10;
+	while (count > 0){
+		list.remove_index(0);
+		count--;
+	}
+	console.log("After removing the 0th element a ton:");
+	list.toString();
+}
+
+//Test function for the shuffle() method
+function list_shuffle_test(){
+	console.log("Testing Shuffling Capabilities");
+	var list = new LinkedList();
+	var count = 10;
+	while (count >= 1){
+		list.push(count);
+		count--;
+	}
+	console.log("After Initialization:");
+	list.toString();
+	list = list.shuffle();
+	console.log("After Shuffling:");
+	list.toString();
+	list = list.shuffle();
+	console.log("After Shuffling Again:");
+	list.toString();
 }
 
 //Main Method
 //list_num();
 //list_string();
-list_safety();
+//list_safety();
+//list_remove_test();
+//list_shuffle_test();
 
