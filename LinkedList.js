@@ -146,7 +146,7 @@ function LinkedList(){
 	}
 	
 	//Returns a shuffled version of the list
-	this.shuffle = function(func){
+	this.shuffle = function(){
 		if (!this.head){return;}
 		var temp = new LinkedList();
 		var clone = this.clone();
