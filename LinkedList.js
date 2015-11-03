@@ -82,6 +82,26 @@ function LinkedList(){
 		return current.item;
 	}
 	
+	//Removes the ith element of the list
+	this.remove_index = function(){
+		if (!this.head || this.size < i+1){return false;}
+		current = this.head;
+		var count = 0;
+		while (count < i){ //go to the index
+			current = current.next;
+			count++;
+		}
+		//Handle Special Cases
+		if (current == this.head){this.head = this.head.next;}
+		if (current == this.tail){this.tail = this.tail.prev;}
+		
+		//Update pointers
+		if(current.prev){current.prev.next = current.next;}
+		if(current.next){current.next.prev = current.prev;}
+		this.size--;
+		return current.item;
+	}
+	
 	//Returns the size of the list
 	this.get_size = function(){return this.size;}
 	
@@ -100,6 +120,18 @@ function LinkedList(){
 			current.item = func(current.item);
 			current = current.next;
 		}
+	}
+	
+	//Determines whether or not all the elements are the same type
+	this.is_compromised = function(){
+		if (!this.head){return;}
+		type = typeof this.head.item;
+		current = this.head;
+		while (current){
+			if(!(typeof current.item == type)){return true;}
+			current = current.next;
+		}
+		return false
 	}
 	
 	//Prints out the contents of the list in a nice orderly fashion
@@ -227,7 +259,35 @@ function list_string(){
 	console.log("Checking Size: "+list.get_size());
 }
 
+function list_safety(){
+	console.log("Testing Compromise Check");
+	var list = new LinkedList();
+	list.append(2);
+	list.push(1);
+	console.log("Is the List Compromised? Should be false");
+	console.log(list.is_compromised());
+	list.push("a string");
+	console.log("After Pushing a string it should be compromised");
+	console.log(list.is_compromised());
+}
+
+function list_remove_test(){
+	console.log("Testing the remove_index() method");
+	var list = new LinkedList();
+	var count = 9;
+	while (count >= 0){
+		list.push(count);
+		count--;
+	}
+	console.log("After Initialization:");
+	list.toString();
+	list.remove_index(9);
+	list.remove_index(0);
+	list.remove_index(3);
+}
+
 //Main Method
-list_num();
-list_string();
+//list_num();
+//list_string();
+list_safety();
 
