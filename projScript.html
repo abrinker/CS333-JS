@@ -6,11 +6,16 @@
 		<h2>This is an HTML Shell for Javascript Testing</h2>
 	</head>
 	<body>
-		<p> HEADER </p>
-		<script type="text/javascript" src="LinkedList.js">
-		</script>
-		<form Name="testForm" action="">
+		<p> Button Input </p>
+		<script type="text/javascript" src="io.js"></script>
+		<form id="testForm" action="" src="io.js">
 			<input type=button value="Click Me" Name="btnHello" OnClick="helloWorld()">
+		</form><br>
+		<p> Form Input </p>
+		<form id="testForm2" action="">
+			First Name: <input type="text" name="f_name"><br>
+			Last Name: <input type="text" name="l_name"><br>
+			<input type="button" onclick="getNames()" name="btnNames" value="Submit">
 		</form>
 	</body>
 </html>
