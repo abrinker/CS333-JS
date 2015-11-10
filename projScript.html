@@ -1,21 +1,51 @@
 <!DOCTYPE HTML>
 <html>
+	<style>
+		#drop_zone{
+			margin: 5px;
+			padding: 5px;
+			min-height:50px;
+			color: green;
+			background-color: lightgrey;
+		}
+	</style>
 	<head>
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 		<meta content="utf-8" http-equiv="encoding">
 		<h2>This is an HTML Shell for Javascript Testing</h2>
 	</head>
 	<body>
-		<p> Button Input </p>
+		<p> Button User Input </p>
 		<script type="text/javascript" src="io.js"></script>
 		<form id="testForm" action="" src="io.js">
 			<input type=button value="Click Me" Name="btnHello" OnClick="helloWorld()">
 		</form><br>
-		<p> Form Input </p>
+		<p> Form User Input </p>
 		<form id="testForm2" action="">
 			First Name: <input type="text" name="f_name"><br>
 			Last Name: <input type="text" name="l_name"><br>
 			<input type="button" onclick="getNames()" name="btnNames" value="Submit">
-		</form>
+		</form><br>
+		<p> File Input </p>
+		<input type="file" id="browse_file" name = "files[]" multiple/>
+		<output id="list"></output>
+		<script>
+			document.getElementById('browse_file').addEventListener('change',
+		 														handleFileBrowse, false);
+		</script><br>
+		<p> Drag 'n' Drop File Input </p>
+		<div id = "drop_zone">This is where you can drop the files. Do it. Doooo iiiiit.</div>
+		<output id="list2"></output>
+		<script>
+			var drop = document.getElementById('drop_zone');
+			drop.addEventListener('dragover',handleDragOver, false);
+			drop.addEventListener('drop', handleFileDrop, false);
+		</script><br>
+		<p> Read Files </p>
+		<input type="file" id="reader"/>
+		<output id="read_out"></output>
+		<script>
+			document.getElementById('reader').addEventListener('change',readFile,false);
+		</script>
 	</body>
 </html>
